@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backup and Restore</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Backup and Restore Database
+          </div>
+          <div class="card-body">
+            <!-- Backup and Restore forms -->
+            <form action="/backup" method="post" enctype="multipart/form-data">
+              <button class="btn btn-primary btn-block" type="submit">Backup Database</button>
+            </form>
+            <form action="/restore" method="post" enctype="multipart/form-data">
+              <input type="file" name="restore_file" id="restore_file" class="d-none">
+              <button class="btn btn-primary btn-block" type="button" onclick="document.getElementById('restore_file').click()">Restore Database</button>
+            </form>
+            <!-- Return button -->
+            <div class="mt-3">
+              <a href="/login" class="btn btn-secondary btn-block">Return to Login Form</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap JS -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    function backupDatabase() {
+      // Make AJAX POST request

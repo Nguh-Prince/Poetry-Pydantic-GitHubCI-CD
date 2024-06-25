@@ -1,0 +1,13 @@
+image: python:3.9
+
+before_script:
+  - pip install poetry
+  - poetry install
+
+stages:
+  - test
+
+test:
+  stage: test
+  script:
+    - poetry run pytest
