@@ -8,12 +8,26 @@ def client():
     with app.test_client() as client:
         yield client
 
-def test_create_item(client):
-    response = client.post('/items', json={'name': 'Item1', 'price': 10.99})
-    assert response.status_code == 201
-    assert response.json == {'name': 'Item1', 'price': 10.99}
+def test_register(client):
+    # Test registration
+    rv = client.post('/register', data=dict(
+        email='newuser@example.com',
+        name='newuser',
+        password='password123'
+    ), follow_redirects=True)
+    assert b'Redirecting...' in rv.data
 
-def test_create_item_validation_error(client):
-    response = client.post('/items', json={'name': 'Item1', 'price': 'invalid'})
-    assert response.status_code == 400
-    assert 'price' in response.json[0]['loc']
+def test_login(client):
+    # Test login
+    rv = client.post('/login', data=dict(
+        email='user1@example.com',
+        password='password1'
+    ), follow_redirects=True)
+    assert b"Logged in as user1" in rv.data
+
+    # Test incorrect password
+    rv = client.post('/login', data=dict(
+        email='user1@example.com',
+        password='wrongpassword'
+    ), follow_redirects=True)
+    assert b"Login failed. Invalid credentials." in rv.data

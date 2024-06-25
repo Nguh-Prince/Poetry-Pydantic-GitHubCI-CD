@@ -10,4 +10,4 @@ stages:
 test:
   stage: test
   script:
-    - poetry run pytest
+    - poetry run pytest tests/main.py
